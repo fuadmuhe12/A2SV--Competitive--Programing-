@@ -1,0 +1,27 @@
+from sys import stdin
+
+size_a, size_b = list(map(int, stdin.readline().strip().split()))
+list_a = list(map(int, stdin.readline().strip().split()))
+list_b = list(map(int, stdin.readline().strip().split()))
+
+index_a, index_b = 0, 0
+
+while index_a < size_a and index_b < size_b:
+    if list_a[index_a] < list_b[index_b]:
+        print(list_a[index_a], end=" ")
+        index_a += 1
+    elif list_a[index_a] > list_b[index_b]:
+        print(list_b[index_b], end=" ")
+        index_b += 1
+    else:
+        print(list_a[index_a], end=" ")
+        print(list_b[index_b], end=' ')
+        index_a += 1
+        index_b += 1
+
+if index_a >= size_a and index_b < size_b:
+    for item in list_b[index_b:]:
+        print(item, end=" ")
+else:
+    for item in list_a[index_a:]:
+        print(item, end=" ")
