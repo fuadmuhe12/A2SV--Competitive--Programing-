@@ -1,15 +1,22 @@
 class Solution:
     def maxOperations(self, nums: List[int], k: int) -> int:
-        num_count = {}
-        operations = 0
+        '''
+        1. sort the arry  and then have a left and right pointer  if the sum of the two is equal to k move inside , if it less move the left if is more move the right the do this untill while left < right
 
-        for num in nums:
-            complement = k - num
-            if complement in num_count and num_count[complement] > 0:
-                operations += 1
-                num_count[complement] -= 1
+        '''
+        nums.sort()
+        l = 0
+        r = len(nums)-1
+        tot = 0
+        while r > l:
+            if nums[r] + nums[l] == k:
+                tot += 1
+                r -= 1
+                l += 1
+            elif nums[r] + nums[l] > k:
+                r -= 1
             else:
-                num_count[num] = num_count.get(num, 0) + 1
+                l += 1
+        return tot
 
-        return operations
-
+            
