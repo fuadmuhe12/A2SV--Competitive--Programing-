@@ -2,15 +2,23 @@ class Solution:
     def sortColors(self, nums: List[int]) -> None:
         """
         Do not return anything, modify nums in-place instead.
+
+        0 0 1 1 2 2
+              i   j
+        
         """
-        red = []
-        white = []
-        blue = []
-        for i in nums:
-            if i == 0:
-                red.append(i)
-            elif i == 1:
-                white.append(i)
+        for left in range(len(nums)-1):
+            right = left +1 
+            if nums[left] == 0:
+                continue
             else:
-                blue.append(i)
-        nums[:] = red + white + blue
+                while right < len(nums):
+                    if nums[right] < nums[left]:
+                         nums[right] ,nums[left] = nums[left],  nums[right] 
+                    right += 1
+                    
+        
+ 
+
+
+        
