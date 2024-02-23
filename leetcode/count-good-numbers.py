@@ -1,20 +1,27 @@
 class Solution:
     def countGoodNumbers(self, n: int) -> int:
-        def power(x, y, mod):
+        ' _1__ ___'
+        eve = n//2 if n%2 == 0 else n//2 + 1
+        odd = n // 2
+        bi = bin(eve)[2:]
+        ans = 1
+        MOD = 10**9 + 7
+        ##########
+        def mod_pow(base, exponent, modulo):
             result = 1
-            x = x % mod
-            while y > 0:
-                if y % 2 == 1:
-                    result = (result * x) % mod
-                y = y // 2
-                x = (x * x) % mod
+
+            # Ensure exponent is non-negative
+            exponent = max(0, exponent)
+
+            while exponent > 0:
+                # If the least significant bit is 1, multiply by base
+                if exponent % 2 == 1:
+                    result = (result * base) % modulo
+
+                # Square the base and reduce the exponent by half
+                base = (base * base) % modulo
+                exponent //= 2
+
             return result
-
-        even_count = power(5, (n + 1) // 2, 10**9 + 7)
-        odd_count = power(4, n // 2, 10**9 + 7)
-
-        total_good_numbers = (even_count * odd_count) % (10**9 + 7)
-        return total_good_numbers
-    
-        countGoodNumbers(n)
-
+        ##########
+        return (mod_pow(4, odd, MOD) * mod_pow(5, eve, MOD)) %MOD
