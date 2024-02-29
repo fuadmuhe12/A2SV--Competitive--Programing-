@@ -1,14 +1,17 @@
 class Solution:
     def predictTheWinner(self, nums: List[int]) -> bool:
-        num_elements = len(nums)
-        dp_table = [[0] * num_elements for _ in range(num_elements)]
-      
-        for i in range(num_elements):
-            dp_table[i][i] = nums[i]
-      
-        for i in range(num_elements - 2, -1, -1):  # Start from second to last and go to start of the list
-            for j in range(i + 1, num_elements):  # Start from just after i and move to the end of the list
-                dp_table[i][j] = max(nums[i] - dp_table[i + 1][j],  # If choosing the start
-                                     nums[j] - dp_table[i][j - 1])  # If choosing the end
-      
-        return dp_table[0][num_elements - 1] >= 0
+        
+        @cache
+        def maxscore(left, right, turn ):
+            if left > right:
+                return 0
+          
+            if turn: 
+                return  max((nums[left] + maxscore(left +1, right, not turn), nums[right] + maxscore(left, right-1, not turn)))
+            else:
+                return min(  maxscore(left +1, right, not turn) - nums[left], maxscore(left, right-1, not turn) - nums[right])
+           
+        val =  maxscore(0, len(nums)-1, True)
+        return val >= 0
+
+
