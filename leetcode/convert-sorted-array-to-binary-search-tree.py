@@ -9,10 +9,9 @@ class Solution:
         def rec(left, right):
             if left > right:
                 return 
+                
             mid = (left +right)//2
-            root = TreeNode()
-            root.val = nums[mid]
-            root.right = rec(mid+1, right)
-            root.left = rec(left, mid-1)
+            root = TreeNode(nums[mid],rec(left, mid-1),rec(mid+1, right))
+        
             return root
         return rec(0, len(nums)-1)
